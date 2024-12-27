@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora Aritmética - VueJS</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <style>
+        body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 20px;
+        background-color: #f7f7f7;
+        }
+        .calculadora {
+        background-color: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        width: 300px;
+        margin: auto;
+        }
+        input, select {
+        width: 90%;
+        padding: 10px;
+        margin: 10px 0;
+        border-radius: 4px;
+        border: 1px solid #ccc;
+        font-size: 16px;
+        }
+        .resultado {
+        font-size: 20px;
+        font-weight: bold;
+        text-align: center;
+        }
+    </style>
+    </head>
+    <body>
+
+    <div id="app" class="calculadora">
+        <h2>Calculadora Aritmética</h2>
+        <input type="number" v-model="numero1" placeholder="Número 1" />
+        <input type="number" v-model="numero2" placeholder="Número 2" />
+        
+        <select v-model="operacao">
+        <option value="+">Soma (+)</option>
+        <option value="-">Subtração (-)</option>
+        <option value="*">Multiplicação (*)</option>
+        <option value="/">Divisão (/)</option>
+        </select>
+        
+        <div class="resultado">
+        Resultado: {{ resultado }}
+        </div>
+    </div>
+
+    <script>
+        new Vue({
+        el: '#app',
+        data: {
+            numero1: 0,
+            numero2: 0,
+            operacao: '+'
+        },
+        computed: {
+            resultado() {
+            let num1 = parseFloat(this.numero1);
+            let num2 = parseFloat(this.numero2);
+            if (isNaN(num1) || isNaN(num2)) {
+                return "Por favor, insira números válidos.";
+            }
+
+            switch (this.operacao) {
+                case '+':
+                return num1 + num2;
+                case '-':
+                return num1 - num2;
+                case '*':
+                return num1 * num2;
+                case '/':
+                if (num2 === 0) {
+                    return "Não é possível dividir por zero.";
+                }
+                return num1 / num2;
+                default:
+                return 0;
+            }
+            }
+        }
+        });
+    </script>
+
+</body>
+</html>
